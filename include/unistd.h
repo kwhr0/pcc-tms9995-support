@@ -27,7 +27,7 @@ extern int open(const char *path, int flags, ...);
 extern int close(int fd);
 extern ssize_t read(int fd, void *buf, int len);
 extern ssize_t write(int fd, const void *buf, int len);
-extern unsigned long lseek(int fd, unsigned long off, int from);
+extern long lseek(int fd, long off, int from);
 
 extern int remove(const char *path);
 extern int rename(const char *path, const char *newpath);

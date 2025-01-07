@@ -69,10 +69,10 @@
 #define CRT0_MDOS	LIBPATH_TI"crt0-mdos.o"
 #define CMD_MDOSBIN	LIBPATH_TI"mdosbin"
 
-#define CMD_AS		BINPATH"as9995"
+#define CMD_AS		BINPATH"as9900"
 #define CMD_CC		LIBPATH"tms9995-cpp"
 #define CMD_CCOM	LIBPATH"tms9995-ccom"
-#define CMD_LD		BINPATH"ld9995"
+#define CMD_LD		BINPATH"ld9900"
 #define CRT0		LIBPATH"crt0.o"
 #define LIBC		LIBPATH"libc.a"
 #define LIB9995		LIBPATH"lib9995.a"
