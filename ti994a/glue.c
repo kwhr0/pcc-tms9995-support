@@ -2,7 +2,7 @@
  *	Some very basic test glue
  */
 
-#include <unistd.h>
+//#include <unistd.h>
 #include <errno.h>
 
 int open(const char *name, int mode, ...)
@@ -29,7 +29,7 @@ int rename(const char *n1, const char *n2)
     return -1;
 }
 
-off_t lseek(int fd, long offset, int mode)
+long lseek(int fd, long offset, int mode)
 {
     errno = EIO;
     return -1L;

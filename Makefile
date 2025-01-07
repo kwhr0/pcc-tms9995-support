@@ -1,8 +1,8 @@
 all: makelitb cc9995 crt0.o crt0-ti994a.o crt0-mdos.o libc.a lib9995.a \
-     libti994a.a tibin mdosbin
+     libti994a.a tibin
 
 install: cc9995 crt0.o crt0-ti994a.o crt0-mdos.o libc.a lib9995.a \
-	tibin mdosbin libti994a.a
+	tibin libti994a.a
 	mkdir -p /opt/cc9995/lib
 	mkdir -p /opt/cc9995/bin
 	mkdir -p /opt/cc9995/include
@@ -20,16 +20,12 @@ install: cc9995 crt0.o crt0-ti994a.o crt0-mdos.o libc.a lib9995.a \
 	cp lib9995.a /opt/cc9995/lib
 	cp cc9995 /opt/cc9995/bin
 	cp tibin /opt/cc9995/lib/target-ti994a
-	cp mdosbin /opt/cc9995/lib/target-mdos
 
 cc9995: cc9995.c
 	gcc -Wall -pedantic -O2 cc9995.c -o cc9995
 
 tibin: tibin.c
 	gcc -Wall -pedantic -O2 tibin.c -o tibin
-
-mdosbin: mdosbin.c
-	gcc -Wall -pedantic -O2 mdosbin.c -o mdosbin
 
 makelitb: makelitb.c
 	gcc -Wall -pedantic -O2 makelitb.c -o makelitb
@@ -110,34 +106,6 @@ OBJ =	libc/memcpy.o \
 	libc/toupper.o \
 	libc/xitoa.o
 
-STDIO =	stdio/fclose.o \
-	stdio/fflush.o \
-	stdio/fgetc.o \
-	stdio/fgetpos.o \
-	stdio/fgets.o \
-	stdio/fopen.o \
-	stdio/fprintf.o \
-	stdio/fputc.o \
-	stdio/fputs.o \
-	stdio/fread.o \
-	stdio/fscanf.o \
-	stdio/fsetpos.o \
-	stdio/ftell.o \
-	stdio/fwrite.o \
-	stdio/gets.o \
-	stdio/getw.o \
-	stdio/printf.o \
-	stdio/putchar.o \
-	stdio/putw.o \
-	stdio/sprintf.o \
-	stdio/sscanf.o \
-	stdio/stdio0.o \
-	stdio/vfprintf.o \
-	stdio/vfscanf.o \
-	stdio/vprintf.o \
-	stdio/vscanf.o \
-	stdio/vsscanf.o
-
 # Members for the support library
 SOBJ =  support9995/add32i.o \
 	support9995/add32.o \
@@ -168,8 +136,11 @@ TOBJ = 	ti994a/console.o \
 
 include literals
 
-libc.a:	cc9995 $(STDIO) $(OBJ)
-	ar rc libc.a $(STDIO) $(OBJ) $(AOBJ)
+libc.a:	cc9995 $(OBJ)
+	ar rc libc.a $(OBJ)
+
+#libc.a:	cc9995 $(STDIO) $(OBJ)
+#	ar rc libc.a $(STDIO) $(OBJ) $(AOBJ)
 
 lib9995.a: cc9995 $(SOBJ) $(LOBJ)
 	ar rc lib9995.a $(SOBJ) $(LOBJ)
@@ -178,7 +149,7 @@ libti994a.a: cc9995 $(TOBJ)
 	ar rc libti994a.a $(TOBJ)
 
 %.o: %.s
-	as9995 $^
+	as9900 $^
 
 %.o: %.c
 	./cc9995 -Iinclude -c $^
